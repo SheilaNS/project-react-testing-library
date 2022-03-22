@@ -20,7 +20,7 @@ describe('Testa o componente App.js', () => {
     },
   ];
 
-  it('Testa o texto dos links na ordem', () => {
+  it('Verifica o texto dos links na ordem', () => {
     const { history } = renderWithRouter(<App />);
 
     LINKS.forEach((link) => {
@@ -34,7 +34,7 @@ describe('Testa o componente App.js', () => {
     expect(notFound).toBeInTheDocument();
   });
 
-  it('Testa o caminho dos links', () => {
+  it('Verifica o caminho dos links', () => {
     const { history } = renderWithRouter(<App />);
 
     LINKS.forEach((link) => {
@@ -45,7 +45,7 @@ describe('Testa o componente App.js', () => {
     });
   });
 
-  it('Testa se o texto da página não encontrada é "Page requested not found"', () => {
+  it('Verifica se o texto da página não encontrada é "Page requested not found"', () => {
     const { history } = renderWithRouter(<App />);
 
     history.push('/pikachu');
