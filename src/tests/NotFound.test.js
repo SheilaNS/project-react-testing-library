@@ -1,6 +1,5 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
 import NotFound from '../components/NotFound';
 import renderWithRouter from './renderWithRouter';
 
