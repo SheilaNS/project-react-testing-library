@@ -5,6 +5,8 @@ import App from '../App';
 import renderWithRouter from './renderWithRouter';
 
 const PATH = '/pokemons/25';
+const MORE = 'More details';
+const FAVPOKE = 'Pokémon favoritado?';
 
 describe('Testa o componente PokemonDetails.js.'
 + ' Verifica se as informações detalhadas:', () => {
@@ -12,7 +14,7 @@ describe('Testa o componente PokemonDetails.js.'
     renderWithRouter(<App />);
 
     const moreDet = screen.getByRole('link',
-      { name: 'More details' });
+      { name: MORE });
     expect(moreDet).toBeInTheDocument();
 
     userEvent.click(moreDet);
@@ -27,7 +29,7 @@ describe('Testa o componente PokemonDetails.js.'
     history.push(PATH);
 
     const moreDet = screen.queryByRole('link',
-      { name: 'More details' });
+      { name: MORE });
     expect(moreDet).not.toBeInTheDocument();
   });
 
@@ -100,17 +102,47 @@ describe('Teste se o usuário pode favoritar um pokémon através da'
     const { history } = renderWithRouter(<App />);
     history.push(PATH);
 
-    const input = screen.getByLabelText('Pokémon favoritado?', { selector: 'input' });
+    const input = screen.getByLabelText(FAVPOKE, { selector: 'input' });
     expect(input).toBeInTheDocument();
     expect(input.type).toBe('checkbox');
   });
 
-  // it('Cliques alternados no checkbox devem adicionar e remover'
-  // + ' respectivamente o Pokémon da lista de favoritos', () => {
-  //   const { history } = renderWithRouter(<App />);
-  //   history.push(PATH);
+  it('Cliques alternados no checkbox devem adicionar e remover'
+  + ' respectivamente o Pokémon da lista de favoritos', () => {
+    const { history } = renderWithRouter(<App />);
+    history.push(PATH);
 
-  //   const input = screen.getByLabelText('Pokémon favoritado?', { selector: 'input' });
-  //   expect(input).toBeInTheDocument();
-  // });
+    const input = screen.getByLabelText(FAVPOKE, { selector: 'input' });
+    expect(input).toBeInTheDocument();
+
+    userEvent.click(input);
+    expect(input.checked).toBeTruthy();
+
+    const favLink = screen.getByRole('link', { name: 'Favorite Pokémons' });
+    expect(favLink).toBeInTheDocument();
+
+    userEvent.click(favLink);
+
+    const favList = screen.queryAllByTestId('pokemon-name');
+    expect(favList).toHaveLength(1);
+
+    const home = screen.getByRole('link', { name: 'Home' });
+    expect(home).toBeInTheDocument();
+    userEvent.click(home);
+
+    const moreDet = screen.getByRole('link', { name: MORE });
+    expect(moreDet).toBeInTheDocument();
+    userEvent.click(moreDet);
+
+    const input2 = screen.getByLabelText(FAVPOKE, { selector: 'input' });
+    expect(input2).toBeInTheDocument();
+    expect(input2.checked).toBeTruthy();
+
+    userEvent.click(input2);
+    expect(input2.checked).toBeFalsy();
+    userEvent.click(favLink);
+
+    const favList1 = screen.queryAllByTestId('pokemon-name');
+    expect(favList1).toHaveLength(0);
+  });
 });
