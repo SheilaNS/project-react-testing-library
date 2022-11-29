@@ -18,7 +18,7 @@ Requisitos feitos: 7<br><br>
 
 ## :speaking_head: Stacks utilizadas
 <div align="left">
-  <a href="https://testing-library.com/docs/react-testing-library/intro/"><img alt="RTL icon" height="30px" width="30px" src="public/rtl.png" />React Testing Library</a>
+  <a href="https://testing-library.com/docs/react-testing-library/intro/"><img alt="RTL icon" width="30px" src="public/rtl.png" />React Testing Library</a>
 </div>
 
 ## :woman_technologist: No seu computador
